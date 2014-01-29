@@ -46,7 +46,9 @@ class SieveManager(models.Manager):
         """Returns all pivot_objs from sieve_qs"""
         res = []
         for obj in sieve_qs:
-            all_val = getattr(obj, pivot_field.name + '_all')
+            all_val = False
+            if hasattr(obj, pivot_field.name + '_all'):
+                all_val = getattr(obj, pivot_field.name + '_all')
             if not all_val:
                 val = getattr(obj, pivot_field.name)
                 # deal with ManyToMany Fields
